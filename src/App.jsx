@@ -303,6 +303,7 @@ export default function PdfComparatorApp() {
   const [sidebarWidth, setSidebarWidth] = useState(300);
   const [hideAccepted, setHideAccepted] = useState(true);
   const [detailPanelHeight, setDetailPanelHeight] = useState(280);
+  // eslint-disable-next-line no-unused-vars
   const [pageMap, setPageMap] = useState([]); // Smart page matching results
   const [isSetupOpen, setIsSetupOpen] = useState(false);
   const [proposedMapping, setProposedMapping] = useState([]);
@@ -359,6 +360,7 @@ export default function PdfComparatorApp() {
   useEffect(() => {
     if (fileA) ensurePageRendered(fileA, setFileA, currentPage, canvasCacheA);
     if (fileB) ensurePageRendered(fileB, setFileB, currentPage, canvasCacheB);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, fileA?.pdfDoc, fileB?.pdfDoc]);
 
   const handleFileSelect = (e, setter, cacheRef) => {
@@ -618,6 +620,7 @@ export default function PdfComparatorApp() {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDiffId, filteredDiffs, diffs]);
 
   // Global Zoom
@@ -669,7 +672,7 @@ export default function PdfComparatorApp() {
   };
 
   // --- Viewer renderer ---
-  const renderDocumentViewer = (title, ref, onScroll, fileState, setter, fileInputRef, dragOver, setDragOver, handleDrop, cacheRef, side) => {
+  const renderDocumentViewer = (title, ref, onScroll, fileState, setter, fileInputRef, dragOver, setDragOver, handleDrop, cacheRef) => {
     const pageDiffs = diffs.filter(d => (d.pageA === currentPage || d.pageB === currentPage));
 
     return (
@@ -857,8 +860,10 @@ export default function PdfComparatorApp() {
                 <span className="text-slate-600 font-medium text-sm">{progressText}</span>
               </div>
             )}
-            {renderDocumentViewer("Kéo thả File A", viewerARef, handleScrollA, fileA, setFileA, fileInputARef, dragOverA, setDragOverA, handleDropA, canvasCacheA, 'A')}
-            {renderDocumentViewer("Kéo thả File B", viewerBRef, handleScrollB, fileB, setFileB, fileInputBRef, dragOverB, setDragOverB, handleDropB, canvasCacheB, 'B')}
+            {/* eslint-disable react-hooks/refs */}
+            {renderDocumentViewer("Kéo thả File A", viewerARef, handleScrollA, fileA, setFileA, fileInputARef, dragOverA, setDragOverA, handleDropA, canvasCacheA)}
+            {renderDocumentViewer("Kéo thả File B", viewerBRef, handleScrollB, fileB, setFileB, fileInputBRef, dragOverB, setDragOverB, handleDropB, canvasCacheB)}
+            {/* eslint-enable react-hooks/refs */}
           </section>
 
           {/* ISSUE LIST SIDEBAR */}
